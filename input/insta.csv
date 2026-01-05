@@ -1,0 +1,11 @@
+id,output_name,text,duration,bg_color,text_color,font_file,font_size,align
+1,insta_trick_01,"Post Reels between 6–9 PM for higher reach.",30,#0B1220,white,C:/Windows/Fonts/arial.ttf,64,center
+2,insta_trick_02,"Use 3–5 relevant hashtags. Too many reduce reach.",30,#111827,white,C:/Windows/Fonts/arial.ttf,62,center
+3,insta_trick_03,"Hook viewers in the first 3 seconds or they scroll.",30,#020617,white,C:/Windows/Fonts/arial.ttf,60,center
+4,insta_trick_04,"Reply to comments in the first hour to boost engagement.",30,#0F172A,white,C:/Windows/Fonts/arial.ttf,58,center
+5,insta_trick_05,"Use trending audio at low volume for algorithm boost.",30,#111827,white,C:/Windows/Fonts/arial.ttf,58,center
+6,insta_trick_06,"Keep Reels under 10 seconds for higher completion rate.",30,#020617,white,C:/Windows/Fonts/arial.ttf,60,center
+7,insta_trick_07,"Add on-screen text so silent viewers stay longer.",30,#0B1220,white,C:/Windows/Fonts/arial.ttf,60,center
+8,insta_trick_08,"Post consistently. 3–5 Reels per week works best.",30,#111827,white,C:/Windows/Fonts/arial.ttf,58,center
+9,insta_trick_09,"Pin your best Reel to your profile for new visitors.",30,#020617,white,C:/Windows/Fonts/arial.ttf,56,center
+10,insta_trick_10,"End every Reel with a call-to-action like Follow or Save.",30,#0F172A,white,C:/Windows/Fonts/arial.ttf,56,center

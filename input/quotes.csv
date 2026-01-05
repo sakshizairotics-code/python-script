@@ -1,0 +1,11 @@
+output_name,text,duration,bg_color,text_color,font_file,font_size,align
+python_trick_01,"Use enumerate() to get index and value together while looping.",30,#0F172A,white,C:/Windows/Fonts/arial.ttf,58,center
+python_trick_02,"List comprehensions make Python code shorter and faster.",30,#020617,white,C:/Windows/Fonts/arial.ttf,60,center
+python_trick_03,"Use zip() to iterate over multiple lists at the same time.",30,#111827,white,C:/Windows/Fonts/arial.ttf,58,center
+python_trick_04,"Use dict.get(key, default) to avoid KeyError exceptions.",30,#020617,white,C:/Windows/Fonts/arial.ttf,56,center
+python_trick_05,"Convert a list to set() to remove duplicate values instantly.",30,#0F172A,white,C:/Windows/Fonts/arial.ttf,58,center
+python_trick_06,"Use any() to check if at least one condition is True.",30,#111827,white,C:/Windows/Fonts/arial.ttf,56,center
+python_trick_07,"Use all() when all conditions must be True in a list.",30,#020617,white,C:/Windows/Fonts/arial.ttf,56,center
+python_trick_08,"Use f-strings for clean and fast string formatting.",30,#0F172A,white,C:/Windows/Fonts/arial.ttf,60,center
+python_trick_09,"Use sorted(iterable, key=...) for complex sorting logic.",30,#111827,white,C:/Windows/Fonts/arial.ttf,56,center
+python_trick_10,"Use enumerate with zip for clean multi-list loops.",30,#020617,white,C:/Windows/Fonts/arial.ttf,56,center
