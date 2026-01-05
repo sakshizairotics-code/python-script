@@ -1,0 +1,99 @@
+# ---------- FIX FOR PILLOW + MOVIEPY ----------
+from PIL import Image, ImageDraw, ImageFont
+if not hasattr(Image, "ANTIALIAS"):
+    Image.ANTIALIAS = Image.Resampling.LANCZOS
+
+# ---------- IMPORTS ----------
+from moviepy.editor import VideoFileClip, ImageClip, CompositeVideoClip, AudioFileClip
+from moviepy.video.fx.all import fadein, fadeout
+import numpy as np
+import os
+
+# ---------- CONFIG ----------
+WIDTH, HEIGHT = 1080, 1920
+FPS = 30
+DURATION = 20
+
+BG_VIDEO = "assets/bg_video.mp4"
+BG_MUSIC = "assets/sbg_music.wav"
+OUTPUT = "output_centered.mp4"
+
+FONT_FILE = "C:/Windows/Fonts/arial.ttf"
+FONT_SIZE = 64
+TEXT_COLOR = "yellow"
+SHADOW_COLOR = "black"
+
+# ---------- MULTIPLE TEXT SLIDES ----------
+TEXTS = [
+    ("finally the farewell\n\ncall has come from swami\n\nits time to go to akkalkot", "yellow"),
+    ("all devotees’ service 🙇🏼‍♀️\n\nlearned from swami 🙏🏼", "cyan"),
+    ("take the sacred legacy ❤️\n\nof Akkalkot with you 🙇🏼‍♀️", "lime"),
+    ("devotion, faith & loyalty 🙏🏼💗\n\nwith swami's blessings 🙇🏼‍♀️", "magenta")
+]
+
+SLIDE_DURATION = DURATION / len(TEXTS)
+
+# ---------- CHECK FILES ----------
+if not os.path.exists(BG_VIDEO):
+    raise FileNotFoundError(f"Background video not found: {BG_VIDEO}")
+if not os.path.exists(BG_MUSIC):
+    raise FileNotFoundError(f"Background music not found: {BG_MUSIC}")
+
+# ---------- LOAD BACKGROUND VIDEO ----------
+bg_clip = VideoFileClip(BG_VIDEO).subclip(0, DURATION)
+bg_clip = bg_clip.resize((WIDTH, HEIGHT))
+
+# ---------- FUNCTION TO CREATE CENTERED TEXT FRAME ----------
+def make_text_frame(text, color):
+    img = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype(FONT_FILE, FONT_SIZE)
+
+    # Get text size
+    bbox = draw.multiline_textbbox((0, 0), text, font=font, align="center")
+    w = bbox[2] - bbox[0]
+    h = bbox[3] - bbox[1]
+
+    x = (WIDTH - w) // 2
+    y = (HEIGHT - h) // 2
+
+    # Draw shadow
+    draw.multiline_text((x+2, y+2), text, font=font, fill=SHADOW_COLOR, align="center")
+    # Draw main text
+    draw.multiline_text((x, y), text, font=font, fill=color, align="center")
+
+    return np.array(img)
+
+# ---------- CREATE TEXT CLIPS (CENTERED) ----------
+text_clips = []
+for i, (txt, color) in enumerate(TEXTS):
+    clip = ImageClip(make_text_frame(txt, color)).set_duration(SLIDE_DURATION)
+    clip = fadein(clip, 0.5).fadeout(0.5)
+    clip = clip.set_start(i * SLIDE_DURATION).set_position('center')  # Centered
+    text_clips.append(clip)
+
+# ---------- DIM BACKGROUND ----------
+def dim_frame(get_frame, t):
+    frame = get_frame(t)
+    return (frame * 0.7).astype(np.uint8)  # Darken 30%
+
+dim_bg_clip = bg_clip.fl(dim_frame)
+
+# ---------- LOAD AUDIO ----------
+audio = AudioFileClip(BG_MUSIC).subclip(0, DURATION).audio_fadein(1).audio_fadeout(1)
+
+# ---------- COMBINE VIDEO + TEXT + AUDIO ----------
+final = CompositeVideoClip([dim_bg_clip, *text_clips]).set_audio(audio)
+
+# ---------- EXPORT ----------
+final.write_videofile(
+    OUTPUT,
+    fps=FPS,
+    codec="libx264",
+    audio_codec="aac"
+)
+
+print("✅ Centered text video created successfully!")
+
+
+
